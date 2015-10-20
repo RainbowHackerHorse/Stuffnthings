@@ -34,7 +34,7 @@ EOT
 #Define variables here later
 DATEVAR=$(date "+%Y-%m-%d")
 # Ask for $REMOTEUSER
-RMTCMD=(dd of=/home/$USER/LinBackup-$DATEVAR.img)
+RMTCMD=$(dd of=/home/$USER/LinBackup-$DATEVAR.img)
 
 if ls /dev | grep -q xvda; then
   echo "XEN Linode, Backing up /dev/xvda"

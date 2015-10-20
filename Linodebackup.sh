@@ -36,13 +36,13 @@ DATEVAR=$(date "+%Y-%m-%d")
 
 if ls /dev | grep -q da0; then
   echo "FreeBSD Backup"
-  DISK=/dev/da0
-elseif ls /dev | grep -q xvda; then
+  DISK=da0
+elif ls /dev | grep -q xvda; then
   echo "Linux XEN"
-  DISK=/dev/xvda
-elseif ls /dev | grep -q sda; then
+  DISK=xvda
+elif ls /dev | grep -q sda; then
   echo "Linux KVM"
-  DISK=/dev/sda
+  DISK=sda
 
-dd if=$DISK | ssh $REMOTEUSER@IPADDRESS "dd of=/home/$USER/LinBackup-$DATEVAR.img
+dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "dd of=/home/$USER/LinBackup-$DATEVAR.img
 exit 0

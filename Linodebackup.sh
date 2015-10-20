@@ -31,10 +31,11 @@ It can differentiate between Xen and KVM.
 
 EOT
 }
-#Define variables here later
+# Defining variables
 DATEVAR=$(date "+%Y-%m-%d")
-# Ask for $REMOTEUSER
-RMTCMD=$(dd of=/home/$USER/LinBackup-$DATEVAR.img)
+echo;echo -n "  Enter The Username: ";read REMOTEUSER
+echo;echo -n "  Enter The Remote Server IPv4 or IPv6 Address: ";read IPADDRESS
+RMTCMD=$(dd of=/home/$REMOTEUSER/LinBackup-$DATEVAR.img)
 
 if ls /dev | grep -q xvda; then
   echo "XEN Linode, Backing up /dev/xvda"

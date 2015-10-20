@@ -38,6 +38,7 @@ tput sgr0
 tput bold
 tput cup 12 15
 $REMOTEADDR(read -p "")
+tput clear
 
 dd if=/dev/$DISK | ssh $REMOTEADD "dd of=/home/$USER/LinBackup-$DATEVAR.img
 exit 0

@@ -43,5 +43,5 @@ elif ls /dev | grep -q sda; then
   DISK=sda
 fi
 
-dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "dd of=/home/$USER/LinBackup-$DATEVAR.img"
+dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "dd of=/home/$USER/LinBackup-\$DATEVAR.img"
 exit 0

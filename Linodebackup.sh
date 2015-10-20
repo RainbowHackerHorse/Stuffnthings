@@ -35,7 +35,7 @@ EOT
 DATEVAR=$(date "+%Y-%m-%d")
 # Ask for $REMOTEUSER
 
-elif ls /dev | grep -q xvda; then
+if ls /dev | grep -q xvda; then
   echo "XEN Linode, Backing up /dev/xvda"
   DISK=xvda
 elif ls /dev | grep -q sda; then

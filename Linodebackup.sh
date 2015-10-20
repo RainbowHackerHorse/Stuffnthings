@@ -27,6 +27,7 @@ GPL restrictions just make it Open, not Free.
 
 This script is intended to be run on a Linode from Rescue Mode and backup to a remote server as an IMG file.
 Images are stored in the specified User's directory as a LinBackup-$Date.img file
+It can differentiate between Xen and KVM.
 
 EOT
 }
@@ -34,14 +35,11 @@ EOT
 DATEVAR=$(date "+%Y-%m-%d")
 # Ask for $REMOTEUSER
 
-if ls /dev | grep -q da0; then
-  echo "FreeBSD Backup"
-  DISK=da0
 elif ls /dev | grep -q xvda; then
-  echo "Linux XEN"
+  echo "XEN Linode, Backing up /dev/xvda"
   DISK=xvda
 elif ls /dev | grep -q sda; then
-  echo "Linux KVM"
+  echo "KVM Linode, Backing up /dev/sda"
   DISK=sda
 
 dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "dd of=/home/$USER/LinBackup-$DATEVAR.img

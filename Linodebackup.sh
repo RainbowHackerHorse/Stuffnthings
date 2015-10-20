@@ -22,7 +22,7 @@ __________                __
         \/      \/     \/     \/     |__|       \/ 
         
 This script is released under a Simplified 2-Clause BSD license. Support 
-truely Free software, and use a BSD license for your projects. 
+truly Free software, and use a BSD license for your projects. 
 GPL restrictions just make it Open, not Free.
 
 This script is intended to be run on a Linode from Rescue Mode and backup to a remote server as an IMG file.

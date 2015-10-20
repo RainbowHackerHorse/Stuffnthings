@@ -42,5 +42,5 @@ elif ls /dev | grep -q sda; then
   echo "KVM Linode, Backing up /dev/sda"
   DISK=sda
 
-dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "dd of=/home/$USER/LinBackup-$DATEVAR.img
+dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "dd of=/home/$USER/LinBackup-$DATEVAR.img"
 exit 0

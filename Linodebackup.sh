@@ -45,5 +45,5 @@ elif ls /dev | grep -q sda; then
   DISK=sda
 fi
 
-dd if=/dev/$DISK | ssh $REMOTEUSER@$IPADDRESS "\$RMTCMD"
+dd if=/dev/$DISK | pv -petrs | ssh $REMOTEUSER@$IPADDRESS "\$RMTCMD"
 exit 0

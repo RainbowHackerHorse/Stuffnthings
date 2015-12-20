@@ -1,0 +1,6 @@
+# This is a Grub (Legacy) configuration file for running the Linode CentOS 6 > OpenNode Image
+timeout 5
+title OpenNode
+root (hd0)
+kernel /boot/vmlinuz-2.6.32-042stab092.3 root=/dev/sda
+initrd /boot/initramfs-2.6.32-042stab092.3.img

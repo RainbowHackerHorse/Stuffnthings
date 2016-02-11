@@ -11,13 +11,16 @@ fi
 mount /dev/$DISK /mnt
 mount -t proc proc /mnt/proc 
 mount -t sysfs sys /mnt/sys 
-mount -o bind /dev /mnt/dev/ 
-mount -t devpts pts /mnt/dev/pts/ 
+mount -o bind /dev /mnt/dev
+mount -t devpts pts /mnt/dev/pts
 cat > /mnt/root/ubfixme2.sh << EOF
+#!/bin/bash
 dpkg --configure -a 
 apt-get update 
 apt-get upgrade
 EOF
-chroot /media/sda /root/ubfixme2.sh
+chmod +x /mnt/root/ubfixme2.sh
+chroot /mnt /root/ubfixme2.sh
+rm /mnt/root/ubfixme2.sh
 echo "Things should be fixed! Reboot and let's see!"
 exit 0

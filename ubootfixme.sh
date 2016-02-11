@@ -16,8 +16,8 @@ mount -t devpts pts /mnt/dev/pts
 cat > /mnt/root/ubfixme2.sh << EOF
 #!/bin/bash
 dpkg --configure -a 
-apt-get update 
-apt-get upgrade
+apt-get -y update 
+apt-get -y upgrade
 EOF
 chmod +x /mnt/root/ubfixme2.sh
 chroot /mnt /root/ubfixme2.sh

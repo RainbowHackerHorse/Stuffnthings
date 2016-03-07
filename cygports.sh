@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+export PS4='Line ${LINENO}: '
+set -x
 #
 # Modified version of Pür Linux portsnag utility for Cygwin on Windows
 # Conceptually based on portsnap, from FreeBSD. 

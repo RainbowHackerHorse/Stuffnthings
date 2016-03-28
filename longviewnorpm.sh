@@ -12,4 +12,8 @@ mv ./* /opt/
 cd ../etc
 mv ./linode /etc/
 mv ./init.d/longview /etc/init.d/
-echo "If you haven't yet, please follow https://www.linode.com/docs/platform/longview/longview to set up your API key"
+echo "Adding API Key"
+echo "If you don't have an API Key, please see instructions at: https://www.linode.com/docs/platform/longview/longview#fedora-and-centos Step 11"
+echo;echo -n "  Enter your Longview API Key: ";read LKEY
+echo $LKEY > /etc/linode/longview.key
+echo "Longview is now installed. Please restart your Linode and re-login to the Linode Manager"

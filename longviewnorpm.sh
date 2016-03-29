@@ -18,6 +18,8 @@ bash install-dependencies.sh
 #I'm just fumbling with perl deps at this point. jesus.
 # Next line because for some reason longview cant find half the stuff installed by install-dependancies.sh so whatever,
 # let's just install things globally and figure it out later. I'm a bad person for doing this ._.
+export PERL_MM_USE_DEFAULT=1
+export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
 cpan install LWP::UserAgent Crypt::SSLeay IO::Socket::INET6 Linux::Distribution JSON::PP JSON Log::LogLite Try::Tiny DBI
 rpm2cpio linode-longview-1.1-4.noarch.rpm | cpio -idmv
 cd ./opt

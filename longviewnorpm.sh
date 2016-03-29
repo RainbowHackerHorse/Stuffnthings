@@ -4,6 +4,8 @@
 # Please see https://github.com/RainbowHackerHorse/Stuffnthings/blob/master/LICENSE
 # for license details
 
+# THIS IS NOT AN AUTOMATED SCRIPT. IT REQUIRES HUMAN INTERVENTION.
+
 set -e
 if cat /etc/redhat-release | grep -q 7; then
 	echo "Detected CentOS 7"
@@ -18,8 +20,8 @@ bash install-dependencies.sh
 #I'm just fumbling with perl deps at this point. jesus.
 # Next line because for some reason longview cant find half the stuff installed by install-dependancies.sh so whatever,
 # let's just install things globally and figure it out later. I'm a bad person for doing this ._.
-export PERL_MM_USE_DEFAULT=1
-export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
+# export PERL_MM_USE_DEFAULT=1
+# export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
 cpan install LWP::UserAgent Crypt::SSLeay IO::Socket::INET6 Linux::Distribution JSON::PP JSON Log::LogLite Try::Tiny DBI
 rpm2cpio linode-longview-1.1-4.noarch.rpm | cpio -idmv
 cd ./opt
@@ -31,4 +33,6 @@ echo "Adding API Key"
 echo "If you don't have an API Key, please see instructions at: https://www.linode.com/docs/platform/longview/longview#fedora-and-centos Step 11"
 echo;echo -n "  Enter your Longview API Key: ";read LKEY
 echo $LKEY > /etc/linode/longview.key
-echo "Longview is now installed. Please restart your Linode and re-login to the Linode Manager"
+service longview start
+chkconfig longview on
+echo "Longview is now installed."

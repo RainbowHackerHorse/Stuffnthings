@@ -23,6 +23,9 @@ bash install-dependencies.sh
 # export PERL_MM_USE_DEFAULT=1
 # export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
 cpan install LWP::UserAgent Crypt::SSLeay IO::Socket::INET6 Linux::Distribution JSON::PP JSON Log::LogLite Try::Tiny DBI
+mkdir shortgaze
+mv linode-longview-1.1-4.noarch.rpm ./shortgaze/
+cd shortgaze
 rpm2cpio linode-longview-1.1-4.noarch.rpm | cpio -idmv
 cd ./opt
 mv ./* /opt/

@@ -37,7 +37,7 @@ cd $HOME/pkgsrc/pkgtools/pkg_rolling-replace
 $HOME/pkg/bin/bmake install clean
 cd $HOME/pkgsrc/devel/scmcvs
 $HOME/pkg/bin/bmake install clean
-cd $HOME/bin/pkg
+cd $HOME/pkg/bin
 curl -L https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/porter.sh > porter
 chmod +x $HOME/pkg/bin/porter
 echo "Bootstrapped pkgsrc in ~/pkgsrc, installed CVS from pkgsrc to override xcode, and installed pkg_rolling-replace"

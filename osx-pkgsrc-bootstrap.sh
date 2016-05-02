@@ -1,6 +1,6 @@
 #!/bin/sh
-set -e
-set -x
+#set -e
+#set -x
 # This is a script to bootstrap pkgsrc on a mac and install some basic tools.
 
 #Copyright (c) 2016 Rainbow

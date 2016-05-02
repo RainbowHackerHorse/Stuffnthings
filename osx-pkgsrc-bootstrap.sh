@@ -1,7 +1,6 @@
 #!/bin/sh
-#set -e
-#set -x
-# Debugging stuff above. Wooo.
+set -e
+set -x
 # This is a script to bootstrap pkgsrc on a mac and install some basic tools.
 
 #Copyright (c) 2016 Rainbow
@@ -28,17 +27,9 @@
 #OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
-if which xcode-select | grep -q xcode-select ;then
-	echo "XCode Found! Moving forward"
-else echo "Failing. XCode missing. Please install XCode from the App store and "
-	echo "then run xcode-select --install"
-	exit 1
-fi
 cd $HOME
-xcode-select --install
-# Will error out if they're not installed. Otherwise, will install.
-xcrun cvs -q -z2 -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -r $PKGSRCBRANCH -P pkgsrc
+wget http://ftp.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.bz2
+tar xvfj pkgsrc.tar.bz2
 cd $HOME/pkgsrc/bootstrap/
 ./bootstrap --abi=64 --prefer-pkgsrc=yes --unprivileged
 # may also need --compiler=clang  i forget >.>

@@ -67,6 +67,8 @@ elif [[ ${1} == "" ]];
 fi
 
 EOF
+chmod +x ~/pkg/bin/porter
 echo "Bootstrapped pkgsrc in ~/pkgsrc, installed CVS from pkgsrc to override xcode, and installed pkg_rolling-replace"
 echo "Please remember to update with cd ~/pkgsrc && env CVS_RSH=ssh cvs up -dP"
+echo "Alternatively, use the porter command to keep the tree up to date and upgrade installed packages"
 exit 0

@@ -1,7 +1,7 @@
 #!/bin/sh
 usage() {
 	cat <<EOF
-usage: porter (bootstrap/fetch/update)
+usage: porter (update/upgrade)
 Commands:
 	update		Update pkgsrc
 	upgrade		Upgrade ports

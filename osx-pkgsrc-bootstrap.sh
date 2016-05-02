@@ -41,6 +41,32 @@ cd ~/pkgsrc/pkgtools/pkg_rolling-replace
 bmake install clean
 cd ~/pkgsrc/devel/scmcvs
 bmake install clean
+cat > ~/pkg/bin/porter << EOF
+#!/bin/sh
+usage() {
+	cat <<EOS
+usage: porter (bootstrap/fetch/update)
+Commands:
+	update		Update pkgsrc
+	upgrade		Upgrade ports
+EOS
+	exit 0
+}
+if [[ ${1} == "update" ]];
+	then
+	echo "Updating pkgsrc..."
+	cd ~/pkgsrc
+	env CVS_RSH=ssh cvs up -dP
+elif [[ ${1} == "upgrade" ]];
+	then
+	echo "Upgrading Installed Packages..."
+	pkg_rolling-replace
+elif [[ ${1} == "" ]];
+	then
+	usage
+fi
+
+EOF
 echo "Bootstrapped pkgsrc in ~/pkgsrc, installed CVS from pkgsrc to override xcode, and installed pkg_rolling-replace"
 echo "Please remember to update with cd ~/pkgsrc && env CVS_RSH=ssh cvs up -dP"
 exit 0

@@ -34,9 +34,9 @@ cd $HOME/pkgsrc/bootstrap/
 ./bootstrap --abi=64 --prefer-pkgsrc=yes --unprivileged
 # may also need --compiler=clang  i forget >.>
 cd $HOME/pkgsrc/pkgtools/pkg_rolling-replace
-bmake install clean
+$HOME/pkg/bin/bmake install clean
 cd $HOME/pkgsrc/devel/scmcvs
-bmake install clean
+$HOME/pkg/bin/bmake install clean
 cd $HOME/bin/pkg
 wget https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/porter.sh
 mv porter.sh porter
@@ -44,4 +44,5 @@ chmod +x $HOME/pkg/bin/porter
 echo "Bootstrapped pkgsrc in ~/pkgsrc, installed CVS from pkgsrc to override xcode, and installed pkg_rolling-replace"
 echo "Please remember to update with cd ~/pkgsrc && env CVS_RSH=ssh cvs up -dP"
 echo "Alternatively, use the porter command to keep the tree up to date and upgrade installed packages"
+echo "Please remember to add $HOME/pkg/bin/ to your \$PATH as well!"
 exit 0

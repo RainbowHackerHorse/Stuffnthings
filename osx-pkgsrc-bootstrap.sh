@@ -1,4 +1,7 @@
 #!/bin/sh
+#set -e
+#set -x
+# Debugging stuff above. Wooo.
 # This is a script to bootstrap pkgsrc on a mac and install some basic tools.
 
 #Copyright (c) 2016 Rainbow
@@ -32,19 +35,21 @@ else echo "Failing. XCode missing. Please install XCode from the App store and "
 	echo "then run xcode-select --install"
 	exit 1
 fi
-cd ~
+cd $HOME
+xcode-select --install
+# Will error out if they're not installed. Otherwise, will install.
 xcrun cvs -q -z2 -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -r $PKGSRCBRANCH -P pkgsrc
-cd ~/pkgsrc/bootstrap/
+cd $HOME/pkgsrc/bootstrap/
 ./bootstrap --abi=64 --prefer-pkgsrc=yes --unprivileged
 # may also need --compiler=clang  i forget >.>
-cd ~/pkgsrc/pkgtools/pkg_rolling-replace
+cd $HOME/pkgsrc/pkgtools/pkg_rolling-replace
 bmake install clean
-cd ~/pkgsrc/devel/scmcvs
+cd $HOME/pkgsrc/devel/scmcvs
 bmake install clean
-cd ~/bin/pkg
+cd $HOME/bin/pkg
 wget https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/porter.sh
 mv porter.sh porter
-chmod +x ~/pkg/bin/porter
+chmod +x $HOME/pkg/bin/porter
 echo "Bootstrapped pkgsrc in ~/pkgsrc, installed CVS from pkgsrc to override xcode, and installed pkg_rolling-replace"
 echo "Please remember to update with cd ~/pkgsrc && env CVS_RSH=ssh cvs up -dP"
 echo "Alternatively, use the porter command to keep the tree up to date and upgrade installed packages"

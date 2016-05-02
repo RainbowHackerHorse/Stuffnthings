@@ -28,7 +28,7 @@ set -x
 #OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cd $HOME
-wget http://ftp.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.bz2
+curl -OL http://ftp.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.bz2
 tar xvfj pkgsrc.tar.bz2
 cd $HOME/pkgsrc/bootstrap/
 ./bootstrap --abi=64 --prefer-pkgsrc=yes --unprivileged
@@ -38,8 +38,7 @@ $HOME/pkg/bin/bmake install clean
 cd $HOME/pkgsrc/devel/scmcvs
 $HOME/pkg/bin/bmake install clean
 cd $HOME/bin/pkg
-wget https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/porter.sh
-mv porter.sh porter
+curl -L https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/porter.sh > porter
 chmod +x $HOME/pkg/bin/porter
 echo "Bootstrapped pkgsrc in ~/pkgsrc, installed CVS from pkgsrc to override xcode, and installed pkg_rolling-replace"
 echo "Please remember to update with cd ~/pkgsrc && env CVS_RSH=ssh cvs up -dP"

@@ -11,11 +11,12 @@ EOF
 if [[ ${1} == "update" ]];
 	then
 	echo "Updating pkgsrc..."
-	cd ~/pkgsrc
+	cd $HOME/pkgsrc
 	env CVS_RSH=ssh cvs up -dP
 elif [[ ${1} == "upgrade" ]];
 	then
 	echo "Upgrading Installed Packages..."
+	cd $HOME/pkgsrc
 	pkg_rolling-replace
 elif [[ ${1} == "" ]];
 	then

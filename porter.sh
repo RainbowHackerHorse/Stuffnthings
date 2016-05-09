@@ -17,7 +17,7 @@ elif [[ ${1} == "upgrade" ]];
 	then
 	echo "Upgrading Installed Packages..."
 	cd $HOME/pkgsrc
-	pkg_rolling-replace
+	pkg_rolling-replace -rsuv
 elif [[ ${1} == "" ]];
 	then
 	usage

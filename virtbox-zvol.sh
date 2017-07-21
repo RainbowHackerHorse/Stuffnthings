@@ -68,11 +68,11 @@ show_help() {
 	Sets the zvol name. If nothing is specified or this option is left off,
 	the command will FAIL!
 	'
-	EOT
+EOT
 }
 
 checkzvol() {
-	if [ $VOLNAME = 'DIE' ]; then
+	if [ "${VOLNAME}" = 'DIE' ]; then
 		echo "Please provide a zvol name. See --help for more information."
 		exit 1
 	fi 
@@ -88,6 +88,6 @@ actually_run_stuff() {
 	exit 0
 }
 
-getargz || exit 1
+getargz "$@" || exit 1
 checkzvol || exit 1
 actually_run_stuff || exit 1

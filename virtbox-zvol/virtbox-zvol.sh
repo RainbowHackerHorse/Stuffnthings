@@ -50,7 +50,14 @@ getargz() {
 
 show_help() {
 	cat << 'EOT'
-	'-h | --help
+	
+	virtbox-zvol is a shell script designed to help automate the process of 
+	creating a ZFS zvol for use as a storage unit to back a light .VMDK
+
+	This script is released under the 2-clause BSD license.
+	(c) 2017 RainbowHackerHorse
+
+	-h | --help
 	Shows this help
 
 	-s | --size
@@ -67,7 +74,7 @@ show_help() {
 	MANDATORY OPTION!!
 	Sets the zvol name. If nothing is specified or this option is left off,
 	the command will FAIL!
-	'
+	
 EOT
 }
 

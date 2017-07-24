@@ -1,7 +1,7 @@
 #!/bin/sh
 # Debugging Stuff
-set -e 
-set -x
+#set -e 
+#set -x
 # 
 
 ZROOT=$(zpool list | awk '{ zPools[NR-1]=$1 } END { print zPools[2] }')

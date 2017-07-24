@@ -1,4 +1,9 @@
 #!/bin/sh
+# Debugging Stuff
+set -e 
+set -x
+# 
+
 ZROOT=$(zpool list | awk '{ zPools[NR-1]=$1 } END { print zPools[2] }')
 USER=$(whoami)
 SIZE=10G
@@ -86,12 +91,18 @@ checkzvol() {
 }
 
 actually_run_stuff() {
-	sudo zfs create -V "${SIZE}" "${ZROOT}"/"${VOLNAME}"
-	sudo chown "${USER}" /dev/zvol/rdsk/"${ZROOT}"/"${VOLNAME}"
+	if [ ! -e /dev/zvol/"${ZROOT}"/"${VOLNAME}" ]; then
+		sudo zfs create -V "${SIZE}" "${ZROOT}"/"${VOLNAME}"
+	fi
+	if [ ! -d /home/"${USER}"/VBoxdisks/ ]; then
+		mkdir -p /home/"${USER}"/VBoxdisks/
+	fi
+	sudo chown "${USER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
 	VBoxManage internalcommands createrawvmdk \
 		-filename /home/"${USER}"/VBoxdisks/"${VOLNAME}".vmdk \
-		-rawdisk /dev/zvol/rdsk/"${ZROOT}"/"${VOLNAME}"
-	VBoxManage registerimage disk /home/"${USER}"/VBoxdisks/"${VOLNAME}".vmdk
+		-rawdisk /dev/zvol/"${ZROOT}"/"${VOLNAME}"
+	# VBoxManage registerimage disk /home/"${USER}"/VBoxdisks/"${VOLNAME}".vmdk
+	echo "Please use /home/\"${USER}\"/VBoxdisks/\"${VOLNAME}\".vmdk as your VM Disk"
 	exit 0
 }
 

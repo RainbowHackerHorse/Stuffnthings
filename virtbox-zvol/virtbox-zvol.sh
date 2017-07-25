@@ -98,7 +98,7 @@ actually_run_stuff() {
 		mkdir -p /home/"${ZUSER}"/VBoxdisks/
 	fi
 	sudo chown "${ZUSER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
-	sudo echo "own	zvol/\"${ZROOT}\"/\"${VOLNAME}\"	\"${ZUSER}\":operator"
+	sudo echo "own	zvol/\"${ZROOT}\"/\"${VOLNAME}\"	\"${ZUSER}\":operator" | sudo tee -a /etc/devfs.conf
 
 	VBoxManage internalcommands createrawvmdk \
 		-filename /home/"${ZUSER}"/VBoxdisks/"${VOLNAME}".vmdk \

@@ -5,7 +5,7 @@
 # 
 
 ZROOT=$(zpool list | awk '{ zPools[NR-1]=$1 } END { print zPools[2] }')
-USER=$(whoami)
+ZUSER=$(whoami)
 SIZE=10G
 VOLNAME=DIE
 
@@ -28,7 +28,7 @@ getargz() {
 				;;
 			-u|--user)
 				if [ "$2" ]; then
-					USER=$2
+					ZUSER=$2
 					# Add input check to ensure proper syntax
 					shift
 				else
@@ -94,15 +94,16 @@ actually_run_stuff() {
 	if [ ! -e /dev/zvol/"${ZROOT}"/"${VOLNAME}" ]; then
 		sudo zfs create -V "${SIZE}" "${ZROOT}"/"${VOLNAME}"
 	fi
-	if [ ! -d /home/"${USER}"/VBoxdisks/ ]; then
-		mkdir -p /home/"${USER}"/VBoxdisks/
+	if [ ! -d /home/"${ZUSER}"/VBoxdisks/ ]; then
+		mkdir -p /home/"${ZUSER}"/VBoxdisks/
 	fi
-	sudo chown "${USER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
+	sudo chown "${ZUSER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
+	sudo echo "own	zvol/\"${ZROOT}\"/\"${VOLNAME}\"	\"${ZUSER}\":operator"
+
 	VBoxManage internalcommands createrawvmdk \
-		-filename /home/"${USER}"/VBoxdisks/"${VOLNAME}".vmdk \
+		-filename /home/"${ZUSER}"/VBoxdisks/"${VOLNAME}".vmdk \
 		-rawdisk /dev/zvol/"${ZROOT}"/"${VOLNAME}"
-	# VBoxManage registerimage disk /home/"${USER}"/VBoxdisks/"${VOLNAME}".vmdk
-	echo "Please use /home/\"${USER}\"/VBoxdisks/\"${VOLNAME}\".vmdk as your VM Disk"
+	echo "Please use /home/\"${ZUSER}\"/VBoxdisks/\"${VOLNAME}\".vmdk as your VM Disk"
 	exit 0
 }
 

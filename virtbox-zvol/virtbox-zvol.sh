@@ -9,6 +9,12 @@ ZUSER=$(whoami)
 SIZE=10G
 VOLNAME=DIE
 
+if [ "$(zpool list | awk '{ zPools[NR-1]=$1 } END { print zPools[1] }')" = bootpool ]; then
+	ZROOT=$(zpool list | awk '{ zPools[NR-1]=$1 } END { print zPools[2] }')
+else
+	ZROOT=$(zpool list | awk '{ zPools[NR-1]=$1 } END { print zPools[1] }')
+fi
+
 getargz() {
 	while :; do
 		case $1 in

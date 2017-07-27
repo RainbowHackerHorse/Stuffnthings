@@ -18,7 +18,7 @@ getargz() {
 				;;
 			-s|--size)
 				if [ "$2" ]; then
-					SIZE=$2
+					SIZE="${2}"
 					# Add input check to ensure proper syntax
 					shift
 				else
@@ -28,7 +28,7 @@ getargz() {
 				;;
 			-u|--user)
 				if [ "$2" ]; then
-					ZUSER=$2
+					ZUSER="${2}"
 					# Add input check to ensure proper syntax
 					shift
 				else
@@ -38,7 +38,7 @@ getargz() {
 				;;
 			-v|--volume)
 				if [ "$2" ]; then
-					VOLNAME=$2
+					VOLNAME="${2}"
 					# Add input check to ensure proper syntax
 					shift
 				else
@@ -46,6 +46,12 @@ getargz() {
 					exit 1
 				fi
 				;;
+			-p|--pool)
+				if [ "$2" ]; then
+					ZROOT="${2}"
+				fi
+			;;
+
 			*)
 				break
 		esac

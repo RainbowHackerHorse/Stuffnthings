@@ -55,6 +55,10 @@ getargz() {
 			-p|--pool)
 				if [ "$2" ]; then
 					ZROOT="${2}"
+					shift
+				else
+					echo "Please provide a pool name!"
+					exit 1
 				fi
 			;;
 

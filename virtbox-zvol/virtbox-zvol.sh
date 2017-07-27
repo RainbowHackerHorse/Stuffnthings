@@ -63,8 +63,9 @@ getargz() {
 				;;
 			-c|--vagrant-convert)
 				if [ "$2" ]; then
-					echo "Fill this with conversion from vmdk to raw to zvol then call create_vmdk"
+					echo "Not Functional At This Time"
 					exit 1
+					# Fill this with conversion from vmdk to raw to zvol then call create_vmdk
 					#shift
 				else
 					echo "Please provide a vagrant disk name to convert!"

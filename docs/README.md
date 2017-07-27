@@ -13,7 +13,8 @@ This repository is organized by folder, with various scripts and utils living in
 
 ### virtbox-zvol
 * virtbox-zvol.sh - Creates a ZFS zvol, configures permissions, and then creates and registers a VirtualBox VMDK shim for the zvol.
-					This allows you to use the zvol to back a disk for VirtualBox.
+					This allows you to use the zvol to back a disk for VirtualBox. Renamed to vzvol and moved to its own repo
+					at https://github.com/RainbowHackerHorse/vzvol
 
 ### cygwin  (Empty)
 

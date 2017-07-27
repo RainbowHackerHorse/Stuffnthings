@@ -122,12 +122,12 @@ actually_run_stuff() {
 		mkdir -p /home/"${ZUSER}"/VBoxdisks/
 	fi
 	sudo chown "${ZUSER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
-	sudo echo "own	zvol/\"${ZROOT}\"/\"${VOLNAME}\"	\"${ZUSER}\":operator" | sudo tee -a /etc/devfs.conf
+	sudo echo "own	zvol/${ZROOT}/${VOLNAME}	${ZUSER}:operator" | sudo tee -a /etc/devfs.conf
 
 	VBoxManage internalcommands createrawvmdk \
 		-filename /home/"${ZUSER}"/VBoxdisks/"${VOLNAME}".vmdk \
 		-rawdisk /dev/zvol/"${ZROOT}"/"${VOLNAME}"
-	echo "Please use /home/\"${ZUSER}\"/VBoxdisks/\"${VOLNAME}\".vmdk as your VM Disk"
+	echo "Please use /home/${ZUSER}/VBoxdisks/${VOLNAME}.vmdk as your VM Disk"
 	exit 0
 }
 

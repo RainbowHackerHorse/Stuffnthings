@@ -60,7 +60,17 @@ getargz() {
 					echo "Please provide a pool name!"
 					exit 1
 				fi
-			;;
+				;;
+			-c|--vagrant-convert)
+				if [ "$2" ]; then
+					echo "Fill this with conversion from vmdk to raw to zvol then call create_vmdk"
+					exit 1
+					#shift
+				else
+					echo "Please provide a vagrant disk name to convert!"
+					exit 1
+				fi
+				;;
 
 			*)
 				break
@@ -114,16 +124,18 @@ checkzvol() {
 	fi 
 }
 
-actually_run_stuff() {
+create_zvol() {
 	if [ ! -e /dev/zvol/"${ZROOT}"/"${VOLNAME}" ]; then
 		sudo zfs create -V "${SIZE}" "${ZROOT}"/"${VOLNAME}"
 	fi
+	sudo chown "${ZUSER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
+	sudo echo "own	zvol/${ZROOT}/${VOLNAME}	${ZUSER}:operator" | sudo tee -a /etc/devfs.conf
+}
+
+create_vmdk() {
 	if [ ! -d /home/"${ZUSER}"/VBoxdisks/ ]; then
 		mkdir -p /home/"${ZUSER}"/VBoxdisks/
 	fi
-	sudo chown "${ZUSER}" /dev/zvol/"${ZROOT}"/"${VOLNAME}"
-	sudo echo "own	zvol/${ZROOT}/${VOLNAME}	${ZUSER}:operator" | sudo tee -a /etc/devfs.conf
-
 	if [ ! -e /home/"${ZUSER}"/VBoxdisks/"${VOLNAME}".vmdk ]; then
 		echo "Creating /home/${ZUSER}/VBoxdisks/${VOLNAME}.vmdk"
 		sleep 3
@@ -134,9 +146,10 @@ actually_run_stuff() {
 		echo "/home/${ZUSER}/VBoxdisks/${VOLNAME}.vmdk" already exists.
 		exit 1
 	fi
-	echo "Please use /home/${ZUSER}/VBoxdisks/${VOLNAME}.vmdk as your VM Disk"
 }
 
 getargz "$@" || exit 1
 checkzvol || exit 1
-actually_run_stuff || exit 1
+create_vzol || exit 1
+create_vmdk || exit 1
+echo "Please use /home/${ZUSER}/VBoxdisks/${VOLNAME}.vmdk as your VM Disk"

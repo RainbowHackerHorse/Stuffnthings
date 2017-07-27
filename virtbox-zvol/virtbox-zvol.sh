@@ -91,6 +91,14 @@ show_help() {
 	MANDATORY OPTION!!
 	Sets the zvol name. If nothing is specified or this option is left off,
 	the command will FAIL!
+
+	-p | --pool
+	This flag will allow you to override the logic to choose the zpool you want
+	your zvol on.
+	By default, this script selects the first zpool available, unless your 
+	first pool is "bootpool" (as with an encrypted system).
+	If your first pool is "bootpool", this script will default to the second
+	listed pool, usually "zroot" in a default install.
 	
 EOT
 }

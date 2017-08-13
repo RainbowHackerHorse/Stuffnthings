@@ -16,6 +16,10 @@ This repository is organized by folder, with various scripts and utils living in
 					This allows you to use the zvol to back a disk for VirtualBox. Renamed to vzvol and moved to its own repo
 					at https://github.com/RainbowHackerHorse/vzvol
 
+### puppetget
+* puppetget.sh - Downloads a specified tarball from PuppetForge, untars it to ~/puppetget (and creates the folder if it doesn't exist),
+				 and renames the module folder to just the module name, sans author or version.
+
 ### cygwin  (Empty)
 
 ### docs

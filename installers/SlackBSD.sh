@@ -1,6 +1,9 @@
 #!/bin/sh
 # Script to download and install Linux Slack Client on FreeBSD
 
+set -x
+set -e
+
 SlackVER=2.8.0-0.1.fc21
 SlackRPM=slack-$SlackVER.x86_64.rpm
 LinABI=linux-c6
@@ -16,10 +19,27 @@ fi
 if ! pkg info rpm4;
 	then pkg install -y rpm4
 fi
+if ! pkg info ca_root_nss;
+	then pkg install -y ca_root_nss
+fi
+if ! pkg info libXScrnSaver;
+	then pkg install -y libXScrnSaver
+fi
+if ! pkg info libsecret;
+	then pkg install -y libsecret
+fi
+if ! pkg info gconf2;
+	then pkg install -y gconf2
+fi
+if ! pkg info gcc;
+	then pkg install -y gcc
+fi
+
 if [ ! -d "$HOME"/Downloads ]; then
 	mkdir "$HOME"/Downloads
 fi
 cd "$HOME"/Downloads
 fetch "https://downloads.slack-edge.com/linux_releases/$SlackRPM"
 cd /compat/linux
-rpm2cpio < "$HOME"/Downloads/"$SlackRPM" | cpio -id
+rpm2cpio < "$HOME"/Downloads/"$SlackRPM" | cpio -id || echo 'FAILED TO INSTALL SLACK in /compat/linux'
+echo 'Please make sure /compat/linux/usr/bin is in your $PATH'

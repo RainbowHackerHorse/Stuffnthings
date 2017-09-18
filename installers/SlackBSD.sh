@@ -22,6 +22,8 @@ if ! pkg info "$LinABI"; then
 	pkg install -y "$LinABI"
 	echo "$LinProcLine" >> /etc/fstab
 	echo "$TMPfs" >> /etc/fstab
+	mount linprocfs
+	mount tmpfs
 fi
 if ! pkg info rpm4;
 	then pkg install -y rpm4

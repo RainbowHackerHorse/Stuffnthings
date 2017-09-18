@@ -6,9 +6,17 @@ set -e
 
 SlackVER=2.8.0-0.1.fc21
 SlackRPM=slack-$SlackVER.x86_64.rpm
+SlackMirror="https://downloads.slack-edge.com/linux_releases"
 LinABI=linux-c6
+LinVer=el6
+LinVerLong=el6_8
 LinProcLine="linprocfs   /compat/linux/proc	linprocfs	rw	0	0"
 TMPfs="tmpfs    /compat/linux/dev/shm	tmpfs	rw,mode=1777	0	0"
+LinMirror="http://mirror.centos.org/centos/6.9/os/x86_64/Packages"
+GConfVer="2.28.0-7.$LinVer.x86_64"
+GConfRPM="GConf2-$GConfVer.rpm"
+ORBitVer="2.14.17-6.$LinVerLong.x86_64"
+ORBitRPM="ORBit2-$ORBitVer.rpm"
 
 # Set Up Dependencies
 if ! pkg info "$LinABI"; then 
@@ -38,12 +46,19 @@ fi
 if [ ! -d "$HOME"/Downloads ]; then
 	mkdir "$HOME"/Downloads
 fi
+# Linking slack provided libs
+echo "/usr/lib/slack" >> /compat/linux/etc/ld.so.conf
+
 cd "$HOME"/Downloads
-fetch "https://downloads.slack-edge.com/linux_releases/$SlackRPM"
+fetch "$LinMirror/$GConfRPM"
+fetch "$LinMirror/$ORBitRPM"
+fetch "$SlackMirror/$SlackRPM"
+
 cd /compat/linux
+rpm2cpio < "$HOME"/Downloads/"$GConfRPM" | cpio -id
+rpm2cpio < "$HOME"/Downloads/"$ORBitRPM" | cpio -id
 rpm2cpio < "$HOME"/Downloads/"$SlackRPM" | cpio -id || echo 'FAILED TO INSTALL SLACK in /compat/linux'
-ln -s /compat/linux/usr/lib/slack/libCallsCore.so /compat/linux/usr/lib64/libCallsCore.so || echo "FAILED TO LINK libCallsCore.so"
-ln -s /compat/linux/usr/lib/slack/libffmpeg.so /compat/linux/usr/lib64/libffmpeg.so || echo "FAILED TO LINK libffmpeg.so"
-ln -s /compat/linux/usr/lib/slack/libCallsCore.so /compat/linux/usr/lib64/libnode.so || echo "FAILED TO LINK libnode.so"
+
+/compat/linux/sbin/ldconfig -r /compat/linux -i
 
 echo 'Please make sure /compat/linux/usr/bin is in your $PATH'

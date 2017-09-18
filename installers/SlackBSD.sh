@@ -7,15 +7,14 @@ set -e
 SlackVER=2.8.0-0.1.fc21
 SlackRPM=slack-$SlackVER.x86_64.rpm
 SlackMirror="https://downloads.slack-edge.com/linux_releases"
-LinABI=linux-c6
-LinVer=el6
-LinVerLong=el6_8
+LinABI=linux-c7
+LinVer=el7
 LinProcLine="linprocfs   /compat/linux/proc	linprocfs	rw	0	0"
 TMPfs="tmpfs    /compat/linux/dev/shm	tmpfs	rw,mode=1777	0	0"
-LinMirror="http://mirror.centos.org/centos/6.9/os/x86_64/Packages"
-GConfVer="2.28.0-7.$LinVer.x86_64"
+LinMirror="http://mirror.centos.org/centos/7.4.1708/os/x86_64/Packages"
+GConfVer="3.2.6-8.$LinVer.x86_64"
 GConfRPM="GConf2-$GConfVer.rpm"
-ORBitVer="2.14.17-6.$LinVerLong.x86_64"
+ORBitVer="2.14.19-13.$LinVer.x86_64"
 ORBitRPM="ORBit2-$ORBitVer.rpm"
 
 # Set Up Dependencies

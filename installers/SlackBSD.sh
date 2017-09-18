@@ -42,8 +42,8 @@ cd "$HOME"/Downloads
 fetch "https://downloads.slack-edge.com/linux_releases/$SlackRPM"
 cd /compat/linux
 rpm2cpio < "$HOME"/Downloads/"$SlackRPM" | cpio -id || echo 'FAILED TO INSTALL SLACK in /compat/linux'
-ln -s /compat/linux/usr/lib/slack/libCallsCore.so /compat/linux/usr/lib/libCallsCore.so || echo "FAILED TO LINK libCallsCore.so"
-ln -s /compat/linux/usr/lib/slack/libffmpeg.so /compat/linux/usr/lib/libffmpeg.so || echo "FAILED TO LINK libffmpeg.so"
-ln -s /compat/linux/usr/lib/slack/libCallsCore.so /compat/linux/usr/lib/libnode.so || echo "FAILED TO LINK libnode.so"
+ln -s /compat/linux/usr/lib/slack/libCallsCore.so /compat/linux/usr/lib64/libCallsCore.so || echo "FAILED TO LINK libCallsCore.so"
+ln -s /compat/linux/usr/lib/slack/libffmpeg.so /compat/linux/usr/lib64/libffmpeg.so || echo "FAILED TO LINK libffmpeg.so"
+ln -s /compat/linux/usr/lib/slack/libCallsCore.so /compat/linux/usr/lib64/libnode.so || echo "FAILED TO LINK libnode.so"
 
 echo 'Please make sure /compat/linux/usr/bin is in your $PATH'

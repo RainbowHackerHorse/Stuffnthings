@@ -19,6 +19,7 @@ ORBitVer="2.14.19-13"
 ORBitPKG="$ORBitVer.$LinVer.x86_64"
 ORBitRPM="ORBit2-$ORBitPKG.rpm"
 RPMDir="$HOME/Downloads"
+PKGlist="rpm4 ca_root_nss libXScrnSaver libsecret gconf2 gcc"
 
 # Set Up Dependencies
 if ! pkg info "$LinABI"; then 
@@ -28,24 +29,11 @@ if ! pkg info "$LinABI"; then
 	mount linprocfs
 	mount tmpfs
 fi
-if ! pkg info rpm4;
-	then pkg install -y rpm4
-fi
-if ! pkg info ca_root_nss;
-	then pkg install -y ca_root_nss
-fi
-if ! pkg info libXScrnSaver;
-	then pkg install -y libXScrnSaver
-fi
-if ! pkg info libsecret;
-	then pkg install -y libsecret
-fi
-if ! pkg info gconf2;
-	then pkg install -y gconf2
-fi
-if ! pkg info gcc;
-	then pkg install -y gcc
-fi
+for i in $PKGlist; do
+	if ! pkg info "$i"; then
+   		pkg install -y "$i"
+	fi
+done
 
 if [ ! -d "$RPMDir" ]; then
 	mkdir "$RPMDir"

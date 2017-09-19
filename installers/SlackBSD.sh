@@ -57,9 +57,9 @@ installrpms() {
 if [ ! -d "$RPMDir" ]; then
 	mkdir "$RPMDir"
 fi
-installpkgs || echo 'Failed to install FreeBSD dependencies' && exit 1
-fetchrpms || echo 'Failed to download RPMs' && exit 1
-installrpms  || echo 'FAILED TO INSTALL SLACK in /compat/linux' && exit 1
+installpkgs || echo 'Failed to install FreeBSD dependencies'
+fetchrpms || echo 'Failed to download RPMs'
+installrpms  || echo 'FAILED TO INSTALL SLACK in /compat/linux'
 
 echo 'Please make sure /compat/linux/usr/bin is in your $PATH'
 exit 0

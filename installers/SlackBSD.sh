@@ -4,18 +4,21 @@
 set -x
 set -e
 
-SlackVER=2.8.0-0.1.fc21
-SlackRPM=slack-$SlackVER.x86_64.rpm
+SlackVER="2.8.0-0.1.fc21"
+SlackRPM="slack-$SlackVER.x86_64.rpm"
 SlackMirror="https://downloads.slack-edge.com/linux_releases"
-LinABI=linux-c7
-LinVer=el7
+LinABI="linux-c7"
+LinVer="el7"
 LinProcLine="linprocfs   /compat/linux/proc	linprocfs	rw	0	0"
 TMPfs="tmpfs    /compat/linux/dev/shm	tmpfs	rw,mode=1777	0	0"
 LinMirror="http://mirror.centos.org/centos/7.4.1708/os/x86_64/Packages"
-GConfVer="3.2.6-8.$LinVer.x86_64"
-GConfRPM="GConf2-$GConfVer.rpm"
-ORBitVer="2.14.19-13.$LinVer.x86_64"
-ORBitRPM="ORBit2-$ORBitVer.rpm"
+GConfVer="3.2.6-8"
+GConfPKG="$GConfVer.$LinVer.x86_64"
+GConfRPM="GConf2-$GConfPKG.rpm"
+ORBitVer="2.14.19-13"
+ORBitPKG="$ORBitVer.$LinVer.x86_64"
+ORBitRPM="ORBit2-$ORBitPKG.rpm"
+RPMDir="$HOME/Downloads"
 
 # Set Up Dependencies
 if ! pkg info "$LinABI"; then 
@@ -44,21 +47,21 @@ if ! pkg info gcc;
 	then pkg install -y gcc
 fi
 
-if [ ! -d "$HOME"/Downloads ]; then
-	mkdir "$HOME"/Downloads
+if [ ! -d "$RPMDir" ]; then
+	mkdir "$RPMDir"
 fi
 # Linking slack provided libs
 echo "/usr/lib/slack" >> /compat/linux/etc/ld.so.conf
 
-cd "$HOME"/Downloads
+cd "$RPMDir"
 fetch "$LinMirror/$GConfRPM"
 fetch "$LinMirror/$ORBitRPM"
 fetch "$SlackMirror/$SlackRPM"
 
 cd /compat/linux
-rpm2cpio < "$HOME"/Downloads/"$GConfRPM" | cpio -id
-rpm2cpio < "$HOME"/Downloads/"$ORBitRPM" | cpio -id
-rpm2cpio < "$HOME"/Downloads/"$SlackRPM" | cpio -id || echo 'FAILED TO INSTALL SLACK in /compat/linux'
+rpm2cpio < "$RPMDir"/"$GConfRPM" | cpio -id
+rpm2cpio < "$RPMDir"/"$ORBitRPM" | cpio -id
+rpm2cpio < "$RPMDir"/"$SlackRPM" | cpio -id || echo 'FAILED TO INSTALL SLACK in /compat/linux'
 
 /compat/linux/sbin/ldconfig -r /compat/linux -i
 

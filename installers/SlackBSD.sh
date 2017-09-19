@@ -21,36 +21,45 @@ ORBitRPM="ORBit2-$ORBitPKG.rpm"
 RPMDir="$HOME/Downloads"
 PKGlist="rpm4 ca_root_nss libXScrnSaver libsecret gconf2 gcc"
 
-# Set Up Dependencies
-if ! pkg info "$LinABI"; then 
-	pkg install -y "$LinABI"
-	echo "$LinProcLine" >> /etc/fstab
-	echo "$TMPfs" >> /etc/fstab
-	mount linprocfs
-	mount tmpfs
-fi
-for i in $PKGlist; do
-	if ! pkg info "$i"; then
-   		pkg install -y "$i"
+installpkgs() {
+	# Set Up Dependencies
+	if ! pkg info "$LinABI"; then 
+		pkg install -y "$LinABI"
+		echo "$LinProcLine" >> /etc/fstab
+		echo "$TMPfs" >> /etc/fstab
+		mount linprocfs
+		mount tmpfs
 	fi
-done
+	for i in $PKGlist; do
+		if ! pkg info "$i"; then
+	   		pkg install -y "$i"
+		fi
+	done	
+}
+
+fetchrpms() {
+	cd "$RPMDir"
+	fetch "$LinMirror/$GConfRPM"
+	fetch "$LinMirror/$ORBitRPM"
+	fetch "$SlackMirror/$SlackRPM"
+}
+
+installrpms() {
+	cd /compat/linux
+	rpm2cpio < "$RPMDir"/"$GConfRPM" | cpio -id
+	rpm2cpio < "$RPMDir"/"$ORBitRPM" | cpio -id
+	rpm2cpio < "$RPMDir"/"$SlackRPM" | cpio -id
+	# Linking slack provided libs
+	echo "/usr/lib/slack" >> /compat/linux/etc/ld.so.conf
+	/compat/linux/sbin/ldconfig -r /compat/linux -i
+}
 
 if [ ! -d "$RPMDir" ]; then
 	mkdir "$RPMDir"
 fi
-# Linking slack provided libs
-echo "/usr/lib/slack" >> /compat/linux/etc/ld.so.conf
-
-cd "$RPMDir"
-fetch "$LinMirror/$GConfRPM"
-fetch "$LinMirror/$ORBitRPM"
-fetch "$SlackMirror/$SlackRPM"
-
-cd /compat/linux
-rpm2cpio < "$RPMDir"/"$GConfRPM" | cpio -id
-rpm2cpio < "$RPMDir"/"$ORBitRPM" | cpio -id
-rpm2cpio < "$RPMDir"/"$SlackRPM" | cpio -id || echo 'FAILED TO INSTALL SLACK in /compat/linux'
-
-/compat/linux/sbin/ldconfig -r /compat/linux -i
+installpkgs || echo 'Failed to install FreeBSD dependencies' && exit 1
+fetchrpms || echo 'Failed to download RPMs' && exit 1
+installrpms  || echo 'FAILED TO INSTALL SLACK in /compat/linux' && exit 1
 
 echo 'Please make sure /compat/linux/usr/bin is in your $PATH'
+exit 0

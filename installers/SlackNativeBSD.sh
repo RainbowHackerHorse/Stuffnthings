@@ -56,6 +56,7 @@ fetch_electron() {
 	cd "$DownloadDir"
 	git clone git@github.com:RainbowHackerHorse/electron.git
 	cd electron
+	git checkout feature/freebsd-native
 }
 
 build_electron() {

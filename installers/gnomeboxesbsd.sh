@@ -43,6 +43,12 @@ sed -i.bak 's#GLIB\_MIN\_VERSION\=2\.52\.0#GLIB\_MIN\_VERSION\=2\.50\.2#g' "${BO
 cd "${BOXESBUILDDIR}"/data || exit 1
 cp org.gnome.Boxes.desktop.in org.gnome.Boxes.desktop
 cd "${BOXESBUILDDIR}" || exit 1
+
+# Replace Linuxism in /src/util-app.c
+#sed -i.bak 's~#include \<linux/if.h\>~\#include \<freebsd/if\.h\>~g' "${BOXESBUILDDIR}"/src/util-app.c
+# Not the right way to do it. Edit util-app.vala
+sed -i.bak 's/using Linux/using Freebsd/g' "${BOXESBUILDDIR}"/src/util-app.vala
+
 # Set GCC
 CC=gcc6
 CXX=g++6
@@ -51,3 +57,7 @@ GCJ=gcj6
 export CC CXX CPP GCJ
 
 gmake
+
+# Dies at: VALAC    gnome_boxes_vala.stamp with:
+# /bin/sh: --enable-experimental: not found
+# gmake[3]: *** [Makefile:2298: gnome_boxes_vala.stamp] Error 127

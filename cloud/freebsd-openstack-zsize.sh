@@ -1,5 +1,4 @@
 #!/bin/sh
-# KEYWORD: firstboot
 
 gpart recover vtbd0
 gpart resize -i 2 vtbd0

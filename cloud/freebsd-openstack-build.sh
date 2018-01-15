@@ -9,6 +9,9 @@
 env ASSUME_ALWAYS_YES=YES pkg bootstrap
 pkg install -y py27-cloud-init sudo ca_root_nss
 
+# Edit network interface
+sed -i -e 's/re0/vtnet0/g' /etc/rc.conf
+
 # Prepare config files
 echo 'cloudinit_enable="YES"' >> /etc/rc.conf
 echo 'console="comconsole,vidconsole"' >> /boot/loader.conf

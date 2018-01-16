@@ -1,0 +1,22 @@
+ (                      (   (      
+ )\ )                (  )\ ))\ )   
+(()/( (     (   (  ( )\(()/(()/(   
+ /(_)))(   ))\ ))\ )((_)/(_))(_))  
+(_))_(()\ /((_)((_|(_)_(_))(_))_   
+| |_  ((_|_))(_))  | _ ) __||   \  
+| __|| '_/ -_) -_) | _ \__ \| |) | 
+|_|  |_| \___\___| |___/___/|___/  
+                                   
+Welcome to FreeBSD on CivoCloud!
+This server is running FreeBSD FREEBSD_VERSION_STRING
+
+To get started:
+Check the documentation at https://www.freebsd.org/doc/en/books/handbook/
+Find ports at https://freshports.org
+Install packages via the pkg command!
+
+This is a community image courtesy of Rainbow
+Github: RainbowHackerHorse
+Twitter: @Hacker_Horse
+
+Thank you CivoCloud for supporting FreeBSD!

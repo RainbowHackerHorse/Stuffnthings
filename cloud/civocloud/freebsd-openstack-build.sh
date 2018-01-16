@@ -2,7 +2,7 @@
 #
 # Generate a civocloud/openstack FreeBSD image from a vanilla install
 # (c) 2018 RainbowHackerHorse
-# You can find the primary repository at https://github.com/RainbowHackerHorse/StuffNThings/Cloud
+# You can find the primary repository at https://github.com/RainbowHackerHorse/Stuffnthings/cloud/civocloud
 # This buildscript is released under the 2-Clause BSD license.
 
 # Install packages
@@ -16,8 +16,17 @@ sed -i -e 's/em0/vtnet0/g' /etc/rc.conf
 echo 'cloudinit_enable="YES"' >> /etc/rc.conf
 echo 'console="comconsole,vidconsole"' >> /boot/loader.conf
 echo 'autoboot_delay="10"' >> /boot/loader.conf
+echo 'vfs.zfs.arc_max=512M' >> /boot/loader.conf
 echo 'freebsd ALL=(ALL) NOPASSWD: ALL' > /usr/local/etc/sudoers.d/10-cloudinit
 cd /root
-fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/cloud/freebsd-openstack-zsize.sh"
+fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/cloud/civocloud/freebsd-openstack-zsize.sh"
 chmod +x /root/freebsd-openstack-zsize.sh
+
+# Grab the MOTD and edit it to reflect the current FreeBSD Version
+FREEBSD_VERSION_TEXT=$( uname -r | awk -F "-" '{print $1"-"$2}' )
+rm /etc/motd
+fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/cloud/civocloud/civo-motd"
+sed -i -e "s/FREEBSD_VERSION_STRING/$FREEBSD_VERSION_TEXT/g" /root/civo-motd
+rm /root/civo-motd-e
+mv /root/civo-motd /etc/motd
 exit

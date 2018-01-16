@@ -29,4 +29,5 @@ fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/
 sed -i -e "s/FREEBSD_VERSION_STRING/$FREEBSD_VERSION_TEXT/g" /root/civo-motd
 rm /root/civo-motd-e
 mv /root/civo-motd /etc/motd
+rm /root/freebsd-openstack-build.sh
 exit

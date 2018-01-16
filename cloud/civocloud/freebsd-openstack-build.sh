@@ -34,6 +34,14 @@ fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/
 sed -i -e "s/FREEBSD_VERSION_STRING/$FREEBSD_VERSION_TEXT/g" /root/civo-motd
 rm /root/civo-motd-e
 mv /root/civo-motd /etc/motd
+
+
+# Clean SSH host keys
+rm /etc/ssh/ssh_host*
+
+echo "Please make sure to run 'set history = 0' before shutting down"
+
+# Cleanup
 rm /root/freebsd-openstack-build.sh
 
 exit

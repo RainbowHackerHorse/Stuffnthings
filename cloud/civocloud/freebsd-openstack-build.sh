@@ -21,6 +21,11 @@ echo 'freebsd ALL=(ALL) NOPASSWD: ALL' > /usr/local/etc/sudoers.d/10-cloudinit
 cd /root
 fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/cloud/civocloud/freebsd-openstack-zsize.sh"
 chmod +x /root/freebsd-openstack-zsize.sh
+mv /root/freebsd-openstack-zsize.sh /usr/local/sbin/freebsd-openstack-zsize
+
+# Add crontab to recover and resize the disk on boot
+echo "# Recover and resize the zpool on reboot" >> /etc/crontab
+echo "@reboot root /usr/local/sbin/freebsd-openstack-zsize" >> /etc/crontab
 
 # Grab the MOTD and edit it to reflect the current FreeBSD Version
 FREEBSD_VERSION_TEXT=$( uname -r | awk -F "-" '{print $1"-"$2}' )
@@ -30,4 +35,7 @@ sed -i -e "s/FREEBSD_VERSION_STRING/$FREEBSD_VERSION_TEXT/g" /root/civo-motd
 rm /root/civo-motd-e
 mv /root/civo-motd /etc/motd
 rm /root/freebsd-openstack-build.sh
+
+# Set zpool to autoexpand on first boot
+zpool set autoexpand=on zroot
 exit

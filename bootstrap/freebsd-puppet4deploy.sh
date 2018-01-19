@@ -36,7 +36,6 @@ p4d_getargs() {
 			;;
 			-a)
 				INSTALL_ADDITIONAL_PKGS=YES
-				shift
 			;;
 			*)
 				break
@@ -76,8 +75,7 @@ p4d_checkargs() {
 }
 
 main() {
-	ALWAYS_ASSUME_YES=yes pkg
-	pkg update
+	ALWAYS_ASSUME_YES=yes pkg update
 	pkg install -y puppet4
 	if [ "${INSTALL_ADDITIONAL_PKGS}" = YES ]; then
 		pkg install -y mosh tmux

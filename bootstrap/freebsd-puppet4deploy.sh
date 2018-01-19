@@ -76,7 +76,7 @@ main() {
 	puppet agent --server "${PUPPETHOST}" --waitforcert 120 --test
 	return 0
 }
-
+p4d_getargs "$@"
 p4d_checkargs
 main
 exit

@@ -1,9 +1,6 @@
 #!/bin/sh
 # Deploy puppet on a remote server
 
-set -x
-set -e
-
 LOCALSERVER=NULL
 PUPPETHOST=NULL
 INSTALL_ADDITIONAL_PKGS=NO

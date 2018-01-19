@@ -6,7 +6,7 @@ Deploy Puppet 4 quickly on FreeBSD
 ### Usage:
 As root:
 ```
-fetch "https://githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/bootstrap/freebsd-puppet4deploy.sh"
+fetch "https://raw.githubusercontent.com/RainbowHackerHorse/Stuffnthings/master/bootstrap/freebsd-puppet4deploy.sh"
 chmod +x freebsd-puppet4deploy.sh
 ./freebsd-puppet4deploy.sh --local MY.NODE.NAME --puppetserver MY.PUPPET.HOST
 ```

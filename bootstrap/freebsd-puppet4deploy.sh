@@ -1,6 +1,9 @@
 #!/bin/sh
 # Deploy puppet on a remote server
 
+set -x
+set -e
+
 LOCALSERVER=NULL
 PUPPETHOST=NULL
 INSTALL_ADDITIONAL_PKGS=NO
@@ -17,12 +20,18 @@ p4d_getargs() {
 				if [ "$2" ]; then
 					LOCALSERVER="${2}"
 					shift
+				else
+					echo "Please specify this node's name"
+					exit 1
 				fi
 			;;
 			-p|--puppetserver)
 				if [ "$2" ]; then
 					PUPPETHOST="${2}"
 					shift
+				else
+					echo "Please specify a puppetserver"
+					exit 1
 				fi
 			;;
 			-a)

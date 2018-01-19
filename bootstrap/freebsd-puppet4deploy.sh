@@ -40,6 +40,7 @@ p4d_getargs() {
 			;;
 			*)
 				break
+			;;
 		esac
 		shift
 	done

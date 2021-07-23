@@ -22,7 +22,8 @@ function 7di_swappy(){
 	mkswap /swapfile
 	swapon /swapfile
 	echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-	echo '/dev/disk/by-id/scsi-0DO_Volume_steam-nyc3-01 /home/steam ext4 defaults,nofail,discard 0 0' >> /etc/fstab
+	# echo '/dev/disk/by-id/$volumename /home/steam ext4 defaults,nofail,discard 0 0' >> /etc/fstab
+	# This is for setting up a separate volume on Digital Ocean, ignore it if you don't need it
 	mount -a
 	swapon --show
 }
